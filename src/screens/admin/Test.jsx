@@ -1,11 +1,11 @@
 import SideNav from "../../ui-materials/sidenav/SideNav";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Button from "../../ui-materials/buttons/Button";
 import Label from "../../ui-materials/label/Label";
 
 const Test = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const tableDetails = [
         {
