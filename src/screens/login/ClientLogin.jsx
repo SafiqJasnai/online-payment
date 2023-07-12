@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../ui-materials/buttons/Button";
 // import Label from "../../ui-materials/label/Label";
 
-const Login = () => {
+const ClientLogin = () => {
 
     const navigate = useNavigate();
 
@@ -27,9 +27,12 @@ const Login = () => {
                         <Button 
                             extraClasses={'w-full'}
                             onClick={() => 
-                                navigate('../student-table', { replace: false })}
+                                navigate('../student-payment', { replace: false })}
                         >Sign In</Button>
                     </div>
+                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                      Don’t have an account yet? <a href="/#/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                  </p>
                 </div>
             </div>
         </div>
@@ -38,4 +41,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default ClientLogin;

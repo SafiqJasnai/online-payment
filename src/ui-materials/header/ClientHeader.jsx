@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../buttons/Button";
+import { useNavigate } from "react-router-dom";
 
-const AdminHeader = () => {
+const ClientHeader = () => {
 
     const navigate = useNavigate();
 
@@ -14,9 +14,7 @@ const AdminHeader = () => {
           data-te-navbar-ref>
             <div className="overflow-auto">
                 <a className="mx-4 hover:font-bold" href="/">Home</a>
-                <a className="mx-4 hover:font-bold" href="/#/student-table">Students</a>
-                <a className="mx-4 hover:font-bold" href="/#/login-request">Approvals</a>
-                <a className="mx-4 hover:font-bold" href="/#/test">Test</a>
+                <a className="mx-4 hover:font-bold" href="/#/student-payment">Pembayaran</a>
                 {/* <a className="mx-2" href="/">Home</a>
                 <a className="mx-2" href="/">Home</a>
                 <a className="mx-2" href="/">Home</a>
@@ -42,4 +40,4 @@ const AdminHeader = () => {
     )
 }
 
-export default AdminHeader;
+export default ClientHeader;
