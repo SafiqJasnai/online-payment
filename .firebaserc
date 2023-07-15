@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "school-management-9386c"
-  }
+  },
+  "targets": {
+    "school-management-9386c": {
+      "hosting": {
+        "school-management": [
+          "school-management-9386c"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

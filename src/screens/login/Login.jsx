@@ -27,7 +27,7 @@ const Login = () => {
                         <Button 
                             extraClasses={'w-full'}
                             onClick={() => 
-                                navigate('../student-table', { replace: false })}
+                                navigate('../student', { replace: false })}
                         >Sign In</Button>
                     </div>
                 </div>

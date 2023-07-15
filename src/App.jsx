@@ -16,7 +16,7 @@ import ClientRegister from "./screens/client/ClientRegister";
 import StudentDetails from "./screens/admin/StudentDetails";
 import LoginApprovalRequest from "./screens/admin/LoginApprovalRequest";
 import LoginRequestDetails from "./screens/admin/LoginRequestDetails";
-import Test from "./screens/admin/Test";
+import StudentPage from "./screens/admin/StudentPage";
 
 const App = () => {
   return (
@@ -32,6 +32,7 @@ const App = () => {
           <Route path='/edit-student-details' element={<EditStudentDetails />} />
           <Route path='/login-request' element={<LoginApprovalRequest />} />
           <Route path='/login-request-details' element={<LoginRequestDetails />} />
+          <Route path='/student' element={<StudentPage />} />
           
           <Route path='/login' element={<ClientLogin />} />
           <Route path='/register' element={<ClientRegister />} />
@@ -39,7 +40,6 @@ const App = () => {
           <Route path='/student-payment' element={<StudentPayment />} />
           <Route path='/create-user' element={<CreateUser />} />
 
-          <Route path='/test' element={<Test />} />
         </Routes>
       </HashRouter>
     </>
