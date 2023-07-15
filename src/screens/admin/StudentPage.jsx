@@ -164,15 +164,15 @@ const StudentPage = () => {
             <div className="bg-white drop-shadow-md p-5 rounded-lg border w-4/12 mx-5">
                 <div className="bg-white">
                     <Label>Add new student</Label>
-                    <div className="pt-2">
-                        <Label extraClasses={'text-gray-500'}>( Submit by form or</Label>
+                    <div className="pt-1">
+                        <Label extraClasses={'text-gray-500 text-sm'}>( Submit by form or</Label>
                         <Button
                         extraClasses={'ml-2'}
                             // onClick={() => {
                             //     navigate('../student-details')
                             // }}
                         >Upload .CSV File</Button>
-                        <Label extraClasses={'ml-2 text-gray-500'}>)</Label>
+                        <Label extraClasses={'ml-2 text-gray-500 text-sm'}>)</Label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group mt-3">
                         <input type="text" name="studentFullName" id="studentFullName" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />

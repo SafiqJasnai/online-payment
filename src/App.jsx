@@ -33,8 +33,8 @@ const App = () => {
           <Route path='/edit-student-details' element={<EditStudentDetails />} />
           <Route path='/login-request' element={<LoginApprovalRequest />} />
           <Route path='/login-request-details' element={<LoginRequestDetails />} />
-          <Route path='/student' element={<StudentPage />} />
-          <Route path='/parent' element={<ParentPage />} />
+          <Route path='/students' element={<StudentPage />} />
+          <Route path='/parents' element={<ParentPage />} />
           
           <Route path='/login' element={<ClientLogin />} />
           <Route path='/register' element={<ClientRegister />} />
