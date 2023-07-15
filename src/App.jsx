@@ -17,6 +17,7 @@ import StudentDetails from "./screens/admin/StudentDetails";
 import LoginApprovalRequest from "./screens/admin/LoginApprovalRequest";
 import LoginRequestDetails from "./screens/admin/LoginRequestDetails";
 import StudentPage from "./screens/admin/StudentPage";
+import ParentPage from "./screens/admin/ParentPage";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/login-request' element={<LoginApprovalRequest />} />
           <Route path='/login-request-details' element={<LoginRequestDetails />} />
           <Route path='/student' element={<StudentPage />} />
+          <Route path='/parent' element={<ParentPage />} />
           
           <Route path='/login' element={<ClientLogin />} />
           <Route path='/register' element={<ClientRegister />} />
