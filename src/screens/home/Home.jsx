@@ -25,7 +25,6 @@ const Home = () => {
         </div> */}
         <div className="float-right pr-4 ">
           <ul className="inline-flex place-content-center">
-            <li><a className="px-4 hover:font-bold" href="/#/durian-login">Admin</a></li>
             <li><a className="px-4 hover:font-bold" href="/#/login">Ibu Bapa</a></li>
             <li><a className="px-4 hover:font-bold" href="/">Hubungi Kami</a></li>
           </ul>
