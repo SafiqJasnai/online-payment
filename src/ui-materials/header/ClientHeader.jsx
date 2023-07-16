@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
+import { sessionClear } from "../../middleware/session-utils";
 
 const ClientHeader = () => {
 
@@ -28,9 +29,10 @@ const ClientHeader = () => {
             <div className="ml-auto mr-4">
                 <Button 
                     extraClasses={'border-slate-500 bg-slate-500 hover:shadow-slate-400'}
-                    onClick={() => 
-                        navigate('../', { replace: false })
-                    }
+                    onClick={() => {
+                        sessionClear();
+                        navigate('../', { replace: false });
+                    }}
                 >
                     Log Out
                 </Button>

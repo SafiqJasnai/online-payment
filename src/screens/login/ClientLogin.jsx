@@ -1,39 +1,94 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui-materials/buttons/Button";
-// import Label from "../../ui-materials/label/Label";
+import { setSessionToken, setSessionUserName, setSessionUserToken } from "../../middleware/session-utils";
+import { toastPromise } from "../../utils/lib-toast/HotToastUtils";
+import apiUserLogin from "../../apis/apiUserLogin";
+import { Toaster } from "react-hot-toast";
 
 const ClientLogin = () => {
 
     const navigate = useNavigate();
 
+    const responseHandler = (response) => {
+        // localStorage.getItem('consoleLogging') && console.log({ apiResponse: response });
+        const data = response?.data;
+        let message = '';
+        if (data?.accessToken) {
+            setSessionToken(data?.accessToken);
+            setSessionUserToken(data?.data?.token);
+            const userName = data?.data?.fullName;
+            setSessionUserName(userName);
+
+            navigate('../student-payment', { replace: true });
+
+            message = userName ? `Welcome ${userName}`: 'Login done';
+            return message;
+        } else {
+            message = 'Login done but token not received ⚠️';
+            return message;
+        }        
+    }
+
+    const errorHandler = (error) => {
+        localStorage.getItem('consoleLogging') && console.log({ errorData: error });
+        let message = '';
+        if (!error) {
+            message = 'Please contact support team. Errorcode-CP103.';
+        }
+        else if (error?.response?.data?.message) {
+            message = error.response.data.message;
+        }
+        else if (error.response?.status === 401) {
+            message = 'User unauthorized';
+        } 
+        else if (error?.message || error?.code) {
+            message = `"${error?.message}" (${error?.code})`;
+        } else {
+            message = error.toString(); // axios to take care
+            // msg = JSON.stringify(error).toString(); // if non-axios parsing
+        }
+        return message;
+    }
+
     return (
-    <section className="bg-white">
+    <section className="bg-sky-900 h-screen">
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                     Sign in to your account
                 </h1>
                 <div className="space-y-4 md:space-y-6">
-                    <div>
-                        <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                        <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                    <div className="relative z-0 w-full mb-6 group mt-3">
+                        <input type="text" name="email" id="email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label for="email" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                     </div>
-                    <div>
-                        <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                    <div className="relative z-0 w-full mb-6 group mt-3">
+                        <input type="password" name="password" id="password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label for="password" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
                     </div>
                     <div className="w-full">
                         <Button 
                             extraClasses={'w-full'}
-                            onClick={() => 
-                                navigate('../student-payment', { replace: false })}
+                            onClick={()=>{
+                                // apiLogin(formData).then(resHandler).catch(errHandler);
+                                toastPromise({
+                                    promise: apiUserLogin({
+                                        "email": "Test12@gmail.com",
+                                        "password": "Test12345"
+                                    }),
+                                    loadingMessage: 'Logging you in...',
+                                    responseHandler: response => responseHandler(response),
+                                    errorHandler: error => errorHandler(error),
+                                });
+                            }}
                         >Sign In</Button>
                     </div>
-                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Don’t have an account yet? <a href="/#/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                    <p className="text-sm font-light text-gray-500">
+                      Don’t have an account yet? <a href="/#/student-search" className="font-medium text-primary-600 hover:underline">Sign up</a>
                   </p>
                 </div>
+                <Toaster />
             </div>
         </div>
     </div>
