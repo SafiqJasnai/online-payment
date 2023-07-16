@@ -5,7 +5,7 @@
   "targets": {
     "school-management-9386c": {
       "hosting": {
-        "school-management": [
+        "client": [
           "school-management-9386c"
         ]
       }
