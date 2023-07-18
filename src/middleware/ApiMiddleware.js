@@ -4,8 +4,8 @@ import { getSessionToken } from "./session-utils";
 
 // #region Configuration
 const ENV_LOCAL = {
-    userApi: 'http://localhost:8080',
-    adminApi: 'http://localhost:8081',
+    userApi: 'http://127.0.0.1:8080',
+    studentApi: 'http://127.0.0.1:8081',
     envId: 'LOCAL_',
 };
 // #endregion Configuration
@@ -42,12 +42,12 @@ export const userApiBaseUrl = domainAwareConfig()?.userApi;
 
 export const apiUserHeaders = {
     'Content-Type': 'application/json',
-    'x-access-token': getSessionToken(),
+    'access-token': getSessionToken(),
 }
 
 export const apiAdminHeaders = {
     'Content-Type': 'application/json',
-    'x-access-token': getSessionToken(),
+    'access-token': getSessionToken(),
 }
 
 export const apiBaseHeaders = {

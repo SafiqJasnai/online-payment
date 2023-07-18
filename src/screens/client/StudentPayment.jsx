@@ -1,11 +1,57 @@
-// import { useNavigate } from "react-router-dom";
 import Button from "../../ui-materials/buttons/Button";
 import Label from "../../ui-materials/label/Label";
 import ClientHeader from "../../ui-materials/header/ClientHeader";
+import { Toaster } from "react-hot-toast";
+import { getSessionUserName } from "../../middleware/session-utils";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import apiValidateToken from "../../apis/apiValidateToken";
+import { toastBadNews, toastGoodNews } from "../../utils/lib-toast/HotToastUtils";
 
 const StudentPayment = () => {
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+
+    const validateToken = () => {
+        
+        apiValidateToken()
+            .then((response) => {
+                const data = response?.data;
+                let message = '';
+                if (data?.status === 200) {
+                    const userName = getSessionUserName();
+                    message = userName ? `Welcome ${userName}`: 'Login done';
+                } else {
+                    message = 'Session expired';
+                    navigate('../login', { replace: true });
+                }
+                return toastGoodNews(message);
+            })
+            .catch((error) => {
+                navigate('../login', { replace: true });
+                let message = '';
+                if (!error) {
+                    message = 'Please contact support team. Errorcode-CP103.';
+                }
+                else if (error?.response?.data?.message) {
+                    message = 'Session expired';
+                }
+                else if (error.response?.status === 401) {
+                    message = 'User unauthorized';
+                } 
+                else if (error?.message || error?.code) {
+                    message = `"${error?.message}" (${error?.code})`;
+                } else {
+                    message = error.toString(); // axios to take care
+                    // msg = JSON.stringify(error).toString(); // if non-axios parsing
+                }
+                return toastBadNews(message);
+            });
+    }
+    
+    useEffect(()=> {
+        validateToken();
+    });
 
     return (<>
     <ClientHeader/>
@@ -81,6 +127,7 @@ const StudentPayment = () => {
                     <Button>Bayar</Button>
                 </div>
             </div>
+            <Toaster />
         </div>
     </section>
     </>)

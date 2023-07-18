@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import { sessionClear } from "../../middleware/session-utils";
+import { toastGoodNews } from "../../utils/lib-toast/HotToastUtils";
 
 const ClientHeader = () => {
 
@@ -31,7 +32,12 @@ const ClientHeader = () => {
                     extraClasses={'border-slate-500 bg-slate-500 hover:shadow-slate-400'}
                     onClick={() => {
                         sessionClear();
-                        navigate('../', { replace: false });
+                        toastGoodNews('Logging out');
+                        setTimeout(
+                            () => 
+                            navigate('../', { replace: true }), 
+                            1000
+                        );
                     }}
                 >
                     Log Out
